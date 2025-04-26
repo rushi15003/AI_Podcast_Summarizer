@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SummarAIze : Highlighting insightful summaries and related content</title>
+
+    <!-- Link to external CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body>
+    <h1>SummarAIze : Highlighting insightful summaries</h1>
+    <div class="container">
+        <form id="podcastForm" action="{{ url_for('process_podcast') }}" method="post" onsubmit="showLoading()">
+            <label for="youtube_url"><strong>Enter YouTube URL:</strong></label>
+            <input type="text" id="youtube_url" name="youtube_url" placeholder="Paste YouTube link here...">
+            <button type="submit">Process</button>
+        </form>
+    </div>
+    <p id="loading" class="loading">⏳ Processing your request... <span class="spinner"></span></p>
+
+    <!-- JavaScript inside HTML -->
+    <script>
+        function showLoading() {
+            document.getElementById('loading').style.display = 'block';
+        }
+    </script>
+
+</body>
+</html>

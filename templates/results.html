@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #1a1a2e;
+            color: #ffffff;
+            text-align: center;
+            padding: 20px;
+            transition: 0.3s;
+        }
+        .container {
+            max-width: 95%;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        .thumbnail-container img {
+            width: 100%;
+            max-width: 900px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        .watch-video-btn, .try-another-btn, .listen-btn {
+            background: #ff4757;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+            padding: 14px 24px;
+            border-radius: 8px;
+            font-size: 20px;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .watch-video-btn:hover, .try-another-btn:hover, .listen-btn:hover {
+            background: #e84118;
+        }
+        .recommendations {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding: 20px;
+            justify-content: center;
+        }
+        .recommendations .video-card {
+            flex: 0 0 auto;
+            width: 220px;
+            text-align: center;
+            transition: transform 0.3s ease-in-out;
+        }
+        .recommendations .video-card img {
+            width: 100%;
+            border-radius: 10px;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .recommendations .video-card:hover img {
+            transform: scale(1.1);
+            box-shadow: 0px 8px 16px rgba(255, 255, 255, 0.3);
+        }
+        textarea {
+            width: 100%;
+            height: 300px;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 10px;
+            border: none;
+            resize: none;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            outline: none;
+        }
+        audio {
+            width: 100%;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <button class="toggle-btn" onclick="toggleTheme()">🌗 Toggle Theme</button>
+    <h1>🎧 AI Podcast Summary</h1>
+
+    <div class="container">
+        {% if youtube_url %}
+            <div class="thumbnail-container">
+                <h2>🎬 YouTube Video</h2>
+                <img src="https://img.youtube.com/vi/{{ youtube_id }}/maxresdefault.jpg" alt="YouTube Thumbnail">
+                <br>
+                <a class="watch-video-btn" href="{{ youtube_url }}" target="_blank">▶ Watch Video</a>
+            </div>
+        {% endif %}
+
+        <h3>YouTube Video Recommendations:</h3>
+        <div class="recommendations">
+            {% if recommendations %}
+                {% for video in recommendations %}
+                    <div class="video-card">
+                        <img src="{{ video.thumbnail }}" alt="Thumbnail">
+                        <p>{{ video.title }}</p>
+                        <a class="watch-video-btn" href="https://www.youtube.com/watch?v={{ video.video_id }}" target="_blank">Watch</a>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No recommendations found.</p>
+            {% endif %}
+        </div>
+
+        {% if audio_path %}
+            <h2>🔊 Listen to Summary</h2>
+            <audio id="summaryAudio" controls>
+                <source src="{{ audio_path }}" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+            <br>
+            <button class="listen-btn" onclick="document.getElementById('summaryAudio').play()">▶ Listen to Summary</button>
+        {% endif %}
+
+        <h2>📝 Summary</h2>
+        <textarea id="summary" readonly>{{ summary }}</textarea>
+
+        <br>
+        <a class="try-another-btn" href="/">🔄 Try Another</a>
+    </div>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle("light-mode");
+        }
+    </script>
+</body>
+</html>

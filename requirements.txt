@@ -1,0 +1,8 @@
+yt_dlp
+openai-whisper
+torch 
+transformers
+nltk
+flask
+scikit-learn
+flask_mysqldb
