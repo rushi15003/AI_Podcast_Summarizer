@@ -43,7 +43,7 @@ AI-Podcast Summarizer transcribes spoken audio and passes it through an advanced
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/Pranali0315/AI-Podcast-Summarizer.git
+   git clone https://github.com/rushi15003/AI_Podcast_Summarizer.git
    cd AI_Based_Podcast_Summarizer_Tool
 
 2. **Create Virtual Environment**
